@@ -94,7 +94,7 @@ REACT_APP_DEMO_MODE=false
 ### 3. **Start Demo**
 ```bash
 npm start
-# Application runs at http://localhost:3000
+# Application runs at http://localhost:4000
 ```
 
 **Note**: DTEBot works immediately in demo mode without IBM credentials, using sophisticated AI simulation for presentations.
