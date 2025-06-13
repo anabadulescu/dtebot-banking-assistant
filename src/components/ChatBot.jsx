@@ -133,7 +133,44 @@ How may I help you with your banking needs today?`,
         // Update session stats
         const stats = getSessionAnalytics();
         setSessionStats(stats);
+
+        // After adding a bot message, add a feedback prompt message
+        const feedbackPrompt = {
+          id: `feedback-${Date.now()}`,
+          text: "Did I answer your question or resolve your issue? (Yes/No)",
+          isUser: false,
+          timestamp: new Date().toISOString(),
+          isFeedback: true
+        };
+        setMessages(prev => [...prev, botMessage, feedbackPrompt]);
       }, responseDelay);
+
+      // In handleSendMessage, add logic to handle feedback responses
+      if (messages.length > 0 && messages[messages.length - 1].isFeedback) {
+        if (/\bno?\b/i.test(messageText)) {
+          const escalationMessage = {
+            id: `escalate-${Date.now()}`,
+            text: "I'm sorry I couldn't fully resolve your issue. Would you like to speak with a human banking specialist? (Yes/No)",
+            isUser: false,
+            timestamp: new Date().toISOString(),
+            isEscalation: true
+          };
+          setMessages(prev => [...prev, escalationMessage]);
+          setIsTyping(false);
+          return;
+        } else if (/\byes?\b/i.test(messageText)) {
+          const thanksMessage = {
+            id: `thanks-${Date.now()}`,
+            text: "Thank you for your feedback! If you have any more questions, just ask.",
+            isUser: false,
+            timestamp: new Date().toISOString(),
+            isThanks: true
+          };
+          setMessages(prev => [...prev, thanksMessage]);
+          setIsTyping(false);
+          return;
+        }
+      }
 
     } catch (error) {
       console.error('Error sending message:', error);

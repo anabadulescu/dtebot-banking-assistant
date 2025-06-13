@@ -9,7 +9,10 @@ const ChatMessage = ({
   intent, 
   isWelcome = false, 
   isError = false,
-  entities = []
+  entities = [],
+  isFeedback = false,
+  isEscalation = false,
+  isThanks = false
 }) => {
   const getConfidenceColor = (conf) => {
     if (conf >= 0.8) return 'text-green-600';
@@ -83,6 +86,32 @@ const ChatMessage = ({
                 <div className="flex items-center gap-2 text-xs text-red-700">
                   <AlertCircle size={12} />
                   <span className="font-medium">Auto-Recovery Activated</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Feedback and Escalation messages */}
+            {isFeedback && (
+              <div className="mt-3 pt-3 border-t border-yellow-200">
+                <div className="flex items-center gap-2 text-xs text-yellow-700">
+                  <AlertCircle size={12} />
+                  <span className="font-medium">Feedback Requested</span>
+                </div>
+              </div>
+            )}
+            {isEscalation && (
+              <div className="mt-3 pt-3 border-t border-purple-200">
+                <div className="flex items-center gap-2 text-xs text-purple-700">
+                  <User size={12} />
+                  <span className="font-medium">Escalation Option</span>
+                </div>
+              </div>
+            )}
+            {isThanks && (
+              <div className="mt-3 pt-3 border-t border-green-200">
+                <div className="flex items-center gap-2 text-xs text-green-700">
+                  <CheckCircle size={12} />
+                  <span className="font-medium">Thank You!</span>
                 </div>
               </div>
             )}
