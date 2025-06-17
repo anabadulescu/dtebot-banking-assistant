@@ -1,6 +1,3 @@
-Absolutely — here's your revised **README-style documentation** for **DTEBot**, cleaned of all emojis and written in a professional, natural tone:
-
----
 
 # DTEBot – Professional AI Banking Assistant
 
